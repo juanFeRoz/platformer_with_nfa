@@ -82,6 +82,7 @@ class Player(pygame.sprite.Sprite):
         self.move(self.x_vel, self.y_vel)
         self.fall_count += 1
         self.update_sprite()
+        self.update()
 
     def draw(self, win):
         win.blit(self.sprite, (self.rect.x, self.rect.y))
@@ -97,6 +98,10 @@ class Player(pygame.sprite.Sprite):
         sprite_index = (self.animation_count // self.ANIMATION_DELAY) % len(sprites)
         self.sprite = sprites[sprite_index]
         self.animation_count += 1
+
+    def update(self):
+        self.rect = self.sprite.get_rect(topleft=(self.rect.x, self.rect.y))
+        self.mask = pygame.mask.from_surface(self.sprite)
 
 
 def get_background(name):
